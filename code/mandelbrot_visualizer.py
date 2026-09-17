@@ -1,6 +1,13 @@
+import os
 import numpy as np, time
 from matplotlib import pyplot as plt
 from matplotlib import colors
+
+if os.environ.get('DISPLAY', '') == '':
+    # print('no display found. Using :0.0')
+    os.environ.__setitem__(  # pylint: disable=unnecessary-dunder-call
+        'DISPLAY', ':0.0')
+
 
 #_CMAP = 'gnuplot'  # Black and blue
 _CMAP = 'hot'      # Red like a heatmap
@@ -12,7 +19,7 @@ def visualize(xMin, xMax, yMin, yMax, maxIterations, func, name):
   time1 = time.time()
   imgWidth  = _DPI * _IMG_WIDTH
   imgHeight = _DPI * _IMG_HEIGHT
-  x, y, z = func(xMin, xMax, yMin, yMax, imgWidth, imgHeight, maxIterations)
+  x, y, z, a = func(xMin, xMax, yMin, yMax, imgWidth, imgHeight, maxIterations)
   
   fig, ax = plt.subplots(figsize = (_IMG_WIDTH, _IMG_HEIGHT), dpi = _DPI)
   ticks = np.arange(0, imgWidth, 3 * _DPI)

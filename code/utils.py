@@ -6,14 +6,17 @@
 import time, functools
 
 funcs = {
-  'Pure Python:'     : 'mandelbrot_set_purepython',
-  'Numpy:   '        : 'mandelbrot_set_numpy',
-  'Better Numpy:'    : 'mandelbrot_set_numpy_better',
-  'Numba:   '        : 'mandelbrot_set_numba',
-  'Better Numba:'    : 'mandelbrot_set_numba_better',
-  'Betterer Numba:'  : 'mandelbrot_set_numba_betterer',
-  'Numexpr:   '      : 'mandelbrot_set_numexpr',
-  'Cython:   '       : 'mandelbrot_set_cython'
+#  'Pure Python:      ' : 'mandelbrot_set_purepython',
+#  'Numpy:            ' : 'mandelbrot_set_numpy',
+#  'Better Numpy:     ' : 'mandelbrot_set_numpy_better',
+#  'Better Numpy 64:  ' : 'mandelbrot_set_numpy_better_64',
+#  'Numba:            ' : 'mandelbrot_set_numba',
+#  'Better Numba:     ' : 'mandelbrot_set_numba_better',
+  'Betterer Numba:   ' : 'mandelbrot_set_numba_betterer',
+  'Betterer Numba 64:' : 'mandelbrot_set_numba_betterer_64',
+#  'Numexpr:          ' : 'mandelbrot_set_numexpr',
+#  'Numexpr 64:       ' : 'mandelbrot_set_numexpr_64',
+#  'Cython:           ' : 'mandelbrot_set_cython'
 }
 
 '''

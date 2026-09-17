@@ -21,13 +21,16 @@ from utils import timed, printTitle
 from mandelbrot1_purepython      import mandelbrot_set_purepython,      mandelbrot_purepython
 from mandelbrot2_numpy           import mandelbrot_set_numpy,           mandelbrot_numpy
 from mandelbrot2a_numpy_better   import mandelbrot_set_numpy_better,    mandelbrot_numpy_better
+from mandelbrot2a_numpy_better_64   import mandelbrot_set_numpy_better_64,    mandelbrot_numpy_better_64
 from mandelbrot3_numba           import mandelbrot_set_numba,           mandelbrot_numba
 from mandelbrot3a_numba_better   import mandelbrot_set_numba_better,    mandelbrot_numba_better
 from mandelbrot3a_numba_betterer import mandelbrot_set_numba_betterer,  mandelbrot_numba_betterer2, mandelbrot_numba_betterer3
+from mandelbrot3a_numba_betterer_64 import mandelbrot_set_numba_betterer_64,  mandelbrot_numba_betterer2_64, mandelbrot_numba_betterer3_64
 from mandelbrot4_numexpr         import mandelbrot_set_numexpr,         mandelbrot_numexpr
+from mandelbrot4_numexpr_64      import mandelbrot_set_numexpr_64,       mandelbrot_numexpr_64
 from mandelbrot5_cython          import mandelbrot_set_cython
-from mandelbrot6_multiprocessing import mandelbrot_set_multiprocessing, mandelbrot_multiprocessing
-from mandelbrot7_mpi             import mandelbrot_set_mpi,             mandelbrot_mpi
+#from mandelbrot6_multiprocessing import mandelbrot_set_multiprocessing, mandelbrot_multiprocessing
+#from mandelbrot7_mpi             import mandelbrot_set_mpi,             mandelbrot_mpi
 from mandelbrot_visualizer       import visualize
 
 ###################
@@ -35,8 +38,8 @@ from mandelbrot_visualizer       import visualize
 ###################
 _XMIN           = -2.0      # Starting X (real number) value
 _XMAX           =  0.5      # Ending   X (real number) value
-_YMIN           = -1.2      # Starting Y (imaginary number) value
-_YMAX           =  1.2      # Ending   Y (imaginary number) value
+_YMIN           = -1.25     # Starting Y (imaginary number) value
+_YMAX           =  1.25     # Ending   Y (imaginary number) value
 _WIDTH          =  1000     # Real      number step count (this dictates our speed more than anything else)
 _HEIGHT         =  1000     # Imaginary number step count (anything past 1000 takes forever in pure Python)
 _MAX_ITERATIONS =  80       # Upper limit for c values that do not diverge to infinity, so we don't compute forever
@@ -54,12 +57,12 @@ assert _WIDTH == _HEIGHT    # These must be the same
 # Meta arguments for running
 ############################
 _EXECUTION_RUNS     = 5                           # This is to get an average execution time, rather than just one
-_VISUALIZE          = True                       # True for visualization and timings, False just for timings
-_SEE_ONE            = False                       # True to quickly visualize once (uses the fastest numba function), False to see all
-_INCREASE_LOAD      = False                       # True to repeatedly run, gradually increasing input sizes to see how well the implementations do
+_VISUALIZE          = False                       # True for visualization and timings, False just for timings
+_SEE_ONE            = True                        # True to quickly visualize once (uses the fastest numba function), False to see all
+_INCREASE_LOAD      = True                       # True to repeatedly run, gradually increasing input sizes to see how well the implementations do
 _LOAD_AMT           = .2                          # 20% increase by default
-_LOAD_TIMES         = 20                          # 20 load increases by default
-_NOISY              = False                       # False by default, still outputs but without the prefixes so you can copy into Excel easier
+_LOAD_TIMES         = 10                          # 20 load increases by default
+_NOISY              = True                        # False by default, still outputs but without the prefixes so you can copy into Excel easier
 assert not _VISUALIZE & _INCREASE_LOAD            # Disallow visualization with increasing load test
 
 ##############################
@@ -116,7 +119,7 @@ else:
   else:
     # QUICKLY SEE A VISUALIZATION
     if _SEE_ONE:
-      visualize(_XMIN, _XMAX, _YMIN, _YMAX, _MAX_ITERATIONS, mandelbrot_set_numba_betterer, 'Betterer Numba:')
+      visualize(_XMIN, _XMAX, _YMIN, _YMAX, _MAX_ITERATIONS, mandelbrot_set_numba_betterer_64, 'Betterer Numba 64:')
     # RUN ALL VISUALIZATIONS (FOR TESTING ACCURACY)
     else:
       for stringName, funcName in utils.funcs.items():

@@ -24,7 +24,7 @@ cdef int mandelbrot_cython_func(double cReal, double cImaginary, int maxIteratio
 cpdef mandelbrot_set_cython_func(double xMin, double xMax, double yMin, double yMax, int width, int height, int maxIterations):
   cdef double[:] realNums = np.linspace(xMin, xMax, width)
   cdef double[:] imagNums = np.linspace(yMin, yMax, height)
-  cdef int[:,:] escapeCounts = np.empty((width, height), np.int)
+  cdef int[:,:] escapeCounts = np.empty((width, height), np.int32)
   cdef int i, j
   
   for i in range(width):
@@ -32,5 +32,3 @@ cpdef mandelbrot_set_cython_func(double xMin, double xMax, double yMin, double y
       escapeCounts[i, j] = mandelbrot_cython_func(realNums[i], imagNums[j], maxIterations)
     
   return (realNums, imagNums, escapeCounts)
-
-
